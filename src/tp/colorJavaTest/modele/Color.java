@@ -50,6 +50,8 @@ public class Color {
             throw new IllegalArgumentException();
         } else {
             this.rouge = rouge;
+            String nouveauCodeHexa = String.format("#%02X%02X%02X", rouge, this.vert, this.bleu);
+            this.setHexValue(nouveauCodeHexa);
         }
     }
 
@@ -58,6 +60,8 @@ public class Color {
             throw new IllegalArgumentException();
         } else {
             this.vert = vert;
+            String nouveauCodeHexa = String.format("#%02X%02X%02X", this.rouge, vert, this.bleu);
+            this.setHexValue(nouveauCodeHexa);
         }
     }
 
@@ -66,6 +70,8 @@ public class Color {
             throw new IllegalArgumentException();
         } else {
             this.bleu = bleu;
+            String nouveauCodeHexa = String.format("#%02X%02X%02X", this.rouge, this.vert, bleu);
+            this.setHexValue(nouveauCodeHexa);
         }
     }
 
