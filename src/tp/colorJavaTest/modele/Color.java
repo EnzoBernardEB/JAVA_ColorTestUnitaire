@@ -8,13 +8,13 @@ public class Color {
 
 
     public Color(int rouge, int vert, int bleu) {
-        if ((rouge < 0 || rouge > 255) || (vert < 0 || vert > 255) || (bleu < 0 || bleu > 255) ) {
-            throw new IllegalArgumentException();
-        } else {
+        if ( verifierParametreValideRGB(rouge) && verifierParametreValideRGB(vert) && verifierParametreValideRGB(bleu) ) {
             this.rouge = rouge;
             this.vert = vert;
             this.bleu = bleu;
             this.codeHexa = String.format("#%02X%02X%02X", this.rouge, this.vert, this.bleu);
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 
@@ -113,6 +113,10 @@ public class Color {
         return true;
     }
 
-
+    private boolean verifierParametreValideRGB(int couleur) {
+        if( couleur < 0 ||  couleur > 255)
+            return false;
+        return true;
+    }
 }
 

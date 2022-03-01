@@ -102,9 +102,16 @@ class ColorTest {
     }
 
     @Test
+    public void testSetHexModifieRGB() {
+        color.setHexValue("#F5DDF5");
+        assertEquals(245, color.getRed());
+        assertEquals(221, color.getGreen());
+        assertEquals(245, color.getBlue());
+    }
+
+    @Test
     public void testSetHexLeveIllegalArgumentExceptionSiParametreInvalide() {
-        Color colorHex = new Color("#D58D35");
-        assertThrows(IllegalArgumentException.class, () -> colorHex.setHexValue("#Z58D35"));
+        assertThrows(IllegalArgumentException.class, () -> color.setHexValue("#Z58D35"));
     }
 
     @Test
