@@ -37,6 +37,11 @@ class ColorTest {
     }
 
     @Test
+    public void constructeurNull() {
+        assertThrows(IllegalArgumentException.class, () -> new Color(null));
+    }
+
+    @Test
     public void constructeurUnArgumentHexadecimalLeveIllegalArgumentExceptionSiCommencePasParDiese(){
         assertThrows(IllegalArgumentException.class, () -> new Color("DD58D35"));
     }
@@ -85,7 +90,7 @@ class ColorTest {
         color.setBlue(0);
         assertEquals(0,color.getBlue());
         assertEquals(213,color.getRed());
-        assertEquals(53,color.getGreen());
+        assertEquals(141,color.getGreen());
     }
 
     @Test

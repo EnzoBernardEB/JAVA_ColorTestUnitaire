@@ -8,7 +8,7 @@ public class Color {
 
 
     public Color(int rouge, int vert, int bleu) {
-        if ((rouge < 0 || rouge > 255) || (vert < 0 || vert > 255) || (bleu < 0 || bleu > 255)) {
+        if ((rouge < 0 || rouge > 255) || (vert < 0 || vert > 255) || (bleu < 0 || bleu > 255) ) {
             throw new IllegalArgumentException();
         } else {
             this.rouge = rouge;
@@ -19,7 +19,7 @@ public class Color {
     }
 
     public Color(String codeHexa) {
-        if (codeHexa.length() > 0 && codeHexa.length() == 7 && codeHexa.startsWith("#") && this.verifieFormatHexa(codeHexa)) {
+        if ( codeHexa != null && codeHexa.length() > 0 && codeHexa.length() == 7 && codeHexa.startsWith("#") && this.verifieFormatHexa(codeHexa)) {
             this.codeHexa = codeHexa;
             this.rouge = java.awt.Color.decode(this.codeHexa).getRed();
             this.vert = java.awt.Color.decode(this.codeHexa).getGreen();
@@ -78,6 +78,9 @@ public class Color {
     public void setHexValue (String codeHexa) {
         if (codeHexa.length() > 0 && codeHexa.length() == 7 && codeHexa.startsWith("#") && this.verifieFormatHexa(codeHexa)) {
             this.codeHexa = codeHexa;
+            this.rouge = java.awt.Color.decode(codeHexa).getRed();
+            this.vert = java.awt.Color.decode(codeHexa).getGreen();
+            this.bleu = java.awt.Color.decode(codeHexa).getBlue();
         } else {
             throw new IllegalArgumentException();
         }
