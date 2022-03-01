@@ -76,7 +76,7 @@ public class Color {
     }
 
     public void setHexValue (String codeHexa) {
-        if (codeHexa.length() > 0 && codeHexa.length() == 7 && codeHexa.startsWith("#") && this.verifieFormatHexa(codeHexa)) {
+        if ( codeHexa != null && codeHexa.length() > 0 && codeHexa.length() == 7 && codeHexa.startsWith("#") && this.verifieFormatHexa(codeHexa)) {
             this.codeHexa = codeHexa;
             this.rouge = java.awt.Color.decode(codeHexa).getRed();
             this.vert = java.awt.Color.decode(codeHexa).getGreen();
