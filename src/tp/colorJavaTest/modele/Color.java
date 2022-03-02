@@ -1,5 +1,8 @@
 package tp.colorJavaTest.modele;
 
+import tp.colorJavaTest.modele.outils.Constante;
+
+
 public class Color {
     private int rouge;
     private int vert;
@@ -8,25 +11,13 @@ public class Color {
 
 
     public Color(int rouge, int vert, int bleu) {
-        if ( verifierParametreValideRGB(rouge) && verifierParametreValideRGB(vert) && verifierParametreValideRGB(bleu) ) {
-            this.rouge = rouge;
-            this.vert = vert;
-            this.bleu = bleu;
-            this.codeHexa = String.format("#%02X%02X%02X", this.rouge, this.vert, this.bleu);
-        } else {
-            throw new IllegalArgumentException();
-        }
+            this.setRed(rouge);
+            this.setGreen(vert);
+            this.setBlue(bleu);
     }
 
     public Color(String codeHexa) {
-        if ( codeHexa != null && codeHexa.length() > 0 && codeHexa.length() == 7 && codeHexa.startsWith("#") && this.verifieFormatHexa(codeHexa)) {
-            this.codeHexa = codeHexa;
-            this.rouge = java.awt.Color.decode(this.codeHexa).getRed();
-            this.vert = java.awt.Color.decode(this.codeHexa).getGreen();
-            this.bleu = java.awt.Color.decode(this.codeHexa).getBlue();
-        } else {
-            throw new IllegalArgumentException();
-        }
+        this.setHexValue(codeHexa);
     }
 
     public int getRed() {
@@ -46,37 +37,39 @@ public class Color {
     }
 
     public void setRed(int rouge) {
-        if ((rouge < 0 || rouge > 255)) {
-            throw new IllegalArgumentException();
-        } else {
+        if (verifierParametreValideRGB(rouge)) {
             this.rouge = rouge;
-            String nouveauCodeHexa = String.format("#%02X%02X%02X", rouge, this.vert, this.bleu);
+            String nouveauCodeHexa = convertirRGBEnHexa(rouge,this.vert,this.bleu);
             this.setHexValue(nouveauCodeHexa);
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 
     public void setGreen(int vert) {
-        if ((vert < 0 || vert > 255)) {
-            throw new IllegalArgumentException();
-        } else {
+        if (verifierParametreValideRGB(vert)) {
             this.vert = vert;
-            String nouveauCodeHexa = String.format("#%02X%02X%02X", this.rouge, vert, this.bleu);
+            String nouveauCodeHexa = convertirRGBEnHexa(this.rouge,vert,this.bleu);
             this.setHexValue(nouveauCodeHexa);
+        } else {
+            throw new IllegalArgumentException();
+
         }
     }
 
     public void setBlue(int bleu) {
-        if ((bleu < 0 || bleu > 255)) {
-            throw new IllegalArgumentException();
-        } else {
+        if (verifierParametreValideRGB(bleu)) {
             this.bleu = bleu;
-            String nouveauCodeHexa = String.format("#%02X%02X%02X", this.rouge, this.vert, bleu);
+            String nouveauCodeHexa = convertirRGBEnHexa(this.rouge,this.vert,bleu);
             this.setHexValue(nouveauCodeHexa);
+        } else {
+            throw new IllegalArgumentException();
+
         }
     }
 
     public void setHexValue (String codeHexa) {
-        if ( codeHexa != null && codeHexa.length() > 0 && codeHexa.length() == 7 && codeHexa.startsWith("#") && this.verifieFormatHexa(codeHexa)) {
+        if (codeHexa != null && codeHexa.length() == Constante.TAILLEHEXA && codeHexa.startsWith("#") && verifieFormatHexaValide(codeHexa)) {
             this.codeHexa = codeHexa;
             this.rouge = java.awt.Color.decode(codeHexa).getRed();
             this.vert = java.awt.Color.decode(codeHexa).getGreen();
@@ -90,16 +83,13 @@ public class Color {
 
     @Override
     public String toString() {
-
         return "[value="+this.getHexValue()+", r="+this.getRed()+", g="+this.getGreen()+", b="+this.getBlue()+"]";
     }
 
-    private static boolean verifieFormatHexa(String s) {
-        // Size of string
+    private static boolean verifieFormatHexaValide(String s) {
         int n = s.length() - 1;
         String chaineSansDiese = s.substring(1);
 
-        // Iterate over string
         for (int i = 0; i < n; i++) {
 
             char ch = chaineSansDiese.charAt(i);
@@ -114,9 +104,13 @@ public class Color {
     }
 
     private boolean verifierParametreValideRGB(int couleur) {
-        if( couleur < 0 ||  couleur > 255)
+        if( couleur < Constante.MINRGB ||  couleur > Constante.MAXRGB)
             return false;
         return true;
+    }
+
+    private String convertirRGBEnHexa(int rouge, int vert, int bleu) {
+        return String.format(Constante.FORMATHEXA, rouge, vert, bleu);
     }
 }
 
